@@ -15,7 +15,7 @@ RUN npm run build
 FROM composer:2 AS composer_bin
 
 # ---- Runtime (Apache + PHP) ----
-FROM php:8.2-apache
+FROM php:8.4-apache
 
 # System deps
 RUN set -eux; \

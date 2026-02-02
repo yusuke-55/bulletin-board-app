@@ -25,7 +25,7 @@ Laravelで作成した、認証機能付きのシンプルな掲示板アプリ�
 ---
 
 ## 使用技術
-- Backend: Laravel 12 / PHP 8.2
+- Backend: Laravel 12 / PHP 8.4+
 - Frontend: Vite
 - DB: SQLite（ローカル開発用）
 - Storage: public disk（storage:link）
