@@ -9,8 +9,14 @@ if [ -n "${PORT:-}" ] && [ "${PORT}" != "80" ]; then
   sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf 2>/dev/null || true
 fi
 
-# Ensure writable directories
-mkdir -p storage/framework/{cache,data,sessions,views} storage/logs bootstrap/cache
+# Ensure writable directories (POSIX sh compatible)
+mkdir -p \
+  storage/framework/cache \
+  storage/framework/sessions \
+  storage/framework/views \
+  storage/framework/testing \
+  storage/logs \
+  bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache || true
 
 # Ensure SQLite database file exists (for demo / ephemeral deployments)

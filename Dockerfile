@@ -24,13 +24,12 @@ FROM php:8.2-apache
 # System deps + PHP extensions
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        libonig-dev \
         libzip-dev \
         unzip \
     && docker-php-ext-install \
         mbstring \
         pdo \
-        pdo_mysql \
-        pdo_pgsql \
         pdo_sqlite \
         zip \
     && a2enmod rewrite \
