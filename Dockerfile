@@ -27,20 +27,21 @@ RUN set -eux; \
         git \
         libcurl4-openssl-dev \
         libonig-dev \
+        libsqlite3-dev \
         libxml2-dev \
         libzip-dev \
+        zlib1g-dev \
         unzip; \
     rm -rf /var/lib/apt/lists/*
 
 # PHP extensions
 RUN set -eux; \
-    docker-php-ext-install \
-        curl \
-        mbstring \
-        pdo \
-        pdo_sqlite \
-        xml \
-        zip; \
+    docker-php-ext-install curl; \
+    docker-php-ext-install mbstring; \
+    docker-php-ext-install pdo; \
+    docker-php-ext-install pdo_sqlite; \
+    docker-php-ext-install xml; \
+    docker-php-ext-install zip; \
     a2enmod rewrite
 
 WORKDIR /var/www/html
