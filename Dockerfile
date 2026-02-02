@@ -17,24 +17,31 @@ FROM composer:2 AS composer_bin
 # ---- Runtime (Apache + PHP) ----
 FROM php:8.2-apache
 
-# System deps + PHP extensions
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+# System deps
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        $PHPIZE_DEPS \
         ca-certificates \
         curl \
         git \
-        libxml2-dev \
+        libcurl4-openssl-dev \
         libonig-dev \
+        libxml2-dev \
         libzip-dev \
-        unzip \
-    && docker-php-ext-install \
+        unzip; \
+    rm -rf /var/lib/apt/lists/*
+
+# PHP extensions
+RUN set -eux; \
+    docker-php-ext-install \
+        curl \
         mbstring \
         pdo \
         pdo_sqlite \
         xml \
-        zip \
-    && a2enmod rewrite \
-    && rm -rf /var/lib/apt/lists/*
+        zip; \
+    a2enmod rewrite
 
 WORKDIR /var/www/html
 
