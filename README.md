@@ -1,11 +1,11 @@
 # 掲示板アプリ
-
-[![CI](https://github.com/yusuke-55/bulletin-board-app/actions/workflows/ci.yml/badge.svg)](https://github.com/yusuke-55/bulletin-board-app/actions/workflows/ci.yml)
-
 Demo:https://bulletin-board-app-wlhj.onrender.com/posts
 
 Laravelで作成した、認証機能付きのシンプルな掲示板アプリです。
 ユーザーはログイン後、投稿の作成・編集・削除（CRUD）を行えます。
+
+基本的な設計思想（MVC、認証、CRUD）を理解し、
+実務でよく使われる機能構成を意識して作成したポートフォリオです。
 
 ---
 
