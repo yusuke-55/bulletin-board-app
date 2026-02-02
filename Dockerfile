@@ -20,6 +20,9 @@ FROM php:8.2-apache
 # System deps + PHP extensions
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        curl \
+        git \
         libxml2-dev \
         libonig-dev \
         libzip-dev \
@@ -38,8 +41,13 @@ WORKDIR /var/www/html
 # Composer
 COPY --from=composer_bin /usr/bin/composer /usr/local/bin/composer
 
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 # App source
 COPY . /var/www/html
+
+# Diagnostics (helps Render build logs)
+RUN php -v && php -m && composer --version
 
 # Install PHP dependencies (scripts are deferred to runtime)
 RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader --no-scripts
