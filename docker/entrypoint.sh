@@ -3,6 +3,11 @@ set -eu
 
 cd /var/www/html
 
+if [ -z "${APP_KEY:-}" ]; then
+  echo "ERROR: APP_KEY is not set. Set APP_KEY in your Render environment variables." >&2
+  exit 1
+fi
+
 # Render (and similar platforms) often require listening on $PORT.
 if [ -n "${PORT:-}" ] && [ "${PORT}" != "80" ]; then
   sed -i "s/^Listen 80$/Listen ${PORT}/" /etc/apache2/ports.conf 2>/dev/null || true
@@ -37,6 +42,9 @@ fi
 if [ ! -L public/storage ]; then
   php artisan storage:link || true
 fi
+
+# Generate package discovery cache (composer build uses --no-scripts)
+php artisan package:discover --ansi
 
 # Run migrations optionally (recommended for simple demos)
 if [ "${RUN_MIGRATIONS:-true}" = "true" ]; then

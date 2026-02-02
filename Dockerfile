@@ -16,7 +16,7 @@ FROM composer:2 AS composer_build
 WORKDIR /app
 
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader
+RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader --no-scripts
 
 # ---- Runtime (Apache + PHP) ----
 FROM php:8.2-apache
