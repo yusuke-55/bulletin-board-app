@@ -1,8 +1,14 @@
 # 掲示板アプリ
 
+[![CI](https://github.com/yusuke-55/bulletin-board-app/actions/workflows/ci.yml/badge.svg)](https://github.com/yusuke-55/bulletin-board-app/actions/workflows/ci.yml)
+
 Laravelで作成した、認証機能付きのシンプルな掲示板アプリです。  
 ユーザーはログイン後、投稿の作成・編集・削除（CRUD）を行うことができ、
 投稿画像やプロフィール用アバター画像のアップロードにも対応しています。
+
+## Demo
+
+- URL: （デプロイ後にここへ貼る）
 
 ---
 
@@ -48,3 +54,28 @@ php artisan key:generate
 php artisan migrate
 npm install
 npm run dev
+```
+
+別案（用意しているスクリプト）
+
+```bash
+composer run setup
+composer run dev
+```
+
+## テスト
+
+```bash
+php artisan test
+```
+
+## 公開にあたっての注意
+
+- `.env` やDBバックアップ（`*.sqlite*`, `*.bak*`）はリポジトリに含めません（`.gitignore`で除外）。
+- 画像アップロード先（`storage/app/public`）はローカル環境の状態に依存するため、必要に応じてダミーデータ生成で再現します。
+
+## メモ
+
+- CIはGitHub Actionsで `php artisan test` と `npm run build` を実行します。
+- リポジトリ名やユーザー名を変える場合は、CIバッジURLも合わせて更新してください。
+- デプロイ手順は [DEPLOY.md](DEPLOY.md) にまとめています。
