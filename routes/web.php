@@ -6,7 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('posts.index');
 });
 
 Route::middleware('guest')->group(function () {
