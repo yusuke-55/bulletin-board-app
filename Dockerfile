@@ -49,7 +49,9 @@ WORKDIR /var/www/html
 # Composer
 COPY --from=composer_bin /usr/bin/composer /usr/local/bin/composer
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_ALLOW_SUPERUSER=1 \
+    COMPOSER_MEMORY_LIMIT=-1 \
+    COMPOSER_PROCESS_TIMEOUT=0
 
 # App source
 COPY . /var/www/html
@@ -57,8 +59,12 @@ COPY . /var/www/html
 # Diagnostics (helps Render build logs)
 RUN php -v && php -m && composer --version
 
+# Composer diagnostics (helps Render build logs)
+RUN composer diagnose || true
+
 # Install PHP dependencies (scripts are deferred to runtime)
-RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader --no-scripts
+RUN set -eux; \
+    composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader --no-scripts -vvv
 
 # Built assets
 COPY --from=node_build /app/public/build /var/www/html/public/build
