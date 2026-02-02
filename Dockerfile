@@ -11,12 +11,8 @@ COPY public ./public
 
 RUN npm run build
 
-# ---- Composer build stage ----
-FROM composer:2 AS composer_build
-WORKDIR /app
-
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader --no-scripts
+# ---- Composer binary stage ----
+FROM composer:2 AS composer_bin
 
 # ---- Runtime (Apache + PHP) ----
 FROM php:8.2-apache
@@ -24,6 +20,7 @@ FROM php:8.2-apache
 # System deps + PHP extensions
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        libxml2-dev \
         libonig-dev \
         libzip-dev \
         unzip \
@@ -31,17 +28,23 @@ RUN apt-get update \
         mbstring \
         pdo \
         pdo_sqlite \
+        xml \
         zip \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
 
+# Composer
+COPY --from=composer_bin /usr/bin/composer /usr/local/bin/composer
+
 # App source
 COPY . /var/www/html
 
-# Vendor + built assets
-COPY --from=composer_build /app/vendor /var/www/html/vendor
+# Install PHP dependencies (scripts are deferred to runtime)
+RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader --no-scripts
+
+# Built assets
 COPY --from=node_build /app/public/build /var/www/html/public/build
 
 # Apache vhost
