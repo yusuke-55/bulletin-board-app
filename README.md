@@ -2,14 +2,10 @@
 
 [![CI](https://github.com/yusuke-55/bulletin-board-app/actions/workflows/ci.yml/badge.svg)](https://github.com/yusuke-55/bulletin-board-app/actions/workflows/ci.yml)
 
+Demo:https://bulletin-board-app-wlhj.onrender.com/posts
+
 Laravelで作成した、認証機能付きのシンプルな掲示板アプリです。
 ユーザーはログイン後、投稿の作成・編集・削除（CRUD）を行えます。
-
----
-
-## Demo
-
-* URL:https://bulletin-board-app-wlhj.onrender.com/posts
 
 ---
 
