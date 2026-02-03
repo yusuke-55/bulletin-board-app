@@ -21,6 +21,19 @@ Laravelで作成した、認証機能付きのシンプルな掲示板アプリ�
 
 ---
 
+## アプリ画面イメージ
+
+### 投稿一覧
+<img width="1536" height="1024" alt="投稿一覧" src="https://github.com/user-attachments/assets/5685fd94-cf8a-4bdc-ac59-e84562903af6" />
+
+### アカウント登録画面
+![アカウント登録画面](https://github.com/user-attachments/assets/9cbcee76-b867-4071-9dc0-a238d7baa964)
+
+### 投稿作成画面
+![投稿作成画面](https://github.com/user-attachments/assets/d068fa23-78ff-4559-bf4d-088b63cae84d)
+
+---
+
 ## 使用技術
 
 * Laravel 12
